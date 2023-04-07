@@ -5,12 +5,11 @@ const notes = JSON.parse(localStorage.getItem('notes'));
 if (notes)
   notes.forEach( note => addNewNote(note) );
 
-addBtn.addEventListener('click', () => {
-  addNewNote();
-});
+addBtn.addEventListener( 'click', () => addNewNote() );
 
 function addNewNote( text = '' ) {
   const note = document.createElement('div')
+
   note.classList.add('note')
 
   note.innerHTML = `
@@ -29,7 +28,6 @@ function addNewNote( text = '' ) {
   `
   ;
 
-  // const notesEl = note.querySelector('.notes')
   const editBtn = note.querySelector('.edit')
 
   const deleteBtn = note.querySelector('.delete')
@@ -39,23 +37,23 @@ function addNewNote( text = '' ) {
   const textArea = note.querySelector('.textarea')
 
   textArea.value = text;
+
   main.innerHTML = marked.parse(text)
 
-  editBtn.addEventListener('click', ()=> {
+  editBtn.addEventListener( 'click', ()=> {
     main.classList.toggle('hidden')
 
     textArea.classList.toggle('hidden')
-
   });
 
-  deleteBtn.addEventListener('click', () => {
+  deleteBtn.addEventListener( 'click', () => {
 
     note.remove();
 
     updateLS()
   });
 
-  textArea.addEventListener('input', (e) => {
+  textArea.addEventListener( 'input', (e) => {
     const { value } = e.target;
 
     main.innerHTML = marked.parse(value)
@@ -64,7 +62,6 @@ function addNewNote( text = '' ) {
   });
 
   document.body.appendChild(note);
-
 }
 
   function updateLS() {
@@ -73,7 +70,7 @@ function addNewNote( text = '' ) {
 
     const notes = [];
 
-    notesText.forEach(note => notes.push(note.value));
+    notesText.forEach( note => notes.push(note.value) );
 
     localStorage.setItem('notes', JSON.stringify(notes));
   }
